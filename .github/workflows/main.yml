@@ -3,12 +3,14 @@ name: Workflow testing
 on:
   workflow_dispatch:
   push:
-     branches: [ "main" ]
+    branches: [ "main" ]
   pull_request:
-     branches: [ "main" ]
+    branches: [ "main" ]
 
 jobs:
   experimental-great:
+    env:
+      MY_ENV: "John Doe"
     runs-on: ubuntu-latest
     steps:
       - name: Greet the User
@@ -19,3 +21,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Show directory after checkout
         run: ls -l
+      - name: Run a multi-line script
+        run: |
+          echo "Hello $MY_ENV"
+          echo "Hello $GITHUB_ACTOR"
